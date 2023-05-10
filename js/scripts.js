@@ -73,7 +73,26 @@ function enableSubmitIfValid() {
     const emailInput = document.getElementById('email');
     const submitButton = document.getElementById('submitButton');
 
-    if (nameInput.value && isValidEmail(emailInput.value)) {
+    const nameError = document.querySelector('#name ~ .invalid-feedback');
+    const emailRequiredError = document.querySelector('#email ~ .invalid-feedback:nth-child(2)');
+    const emailInvalidError = document.querySelector('#email ~ .invalid-feedback:nth-child(3)');
+
+    let isNameValid = !!nameInput.value;
+    let isEmailValid = isValidEmail(emailInput.value);
+
+    if (isNameValid) {
+        nameError.classList.remove('d-block');
+    } else {
+        nameError.classList.add('d-block');
+    }
+
+    if (isEmailValid || !emailInput.value) {
+        emailInvalidError.classList.remove('d-block');
+    } else {
+        emailInvalidError.classList.add('d-block');
+    }
+
+    if (isNameValid && isEmailValid) {
         submitButton.classList.remove('disabled');
         submitButton.disabled = false;
     } else {
@@ -81,3 +100,4 @@ function enableSubmitIfValid() {
         submitButton.disabled = true;
     }
 }
+
