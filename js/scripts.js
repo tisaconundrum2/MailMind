@@ -53,16 +53,6 @@ window.addEventListener('DOMContentLoaded', event => {
 
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    const nameInput = document.getElementById('name');
-    const emailInput = document.getElementById('email');
-
-    nameInput.addEventListener('input', enableSubmitIfValid);
-    emailInput.addEventListener('input', enableSubmitIfValid);
-
-    enableSubmitIfValid(); // Call once to set initial button state
-});
-
 function isValidEmail(email) {
     const regex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
     return regex.test(email);
@@ -74,15 +64,22 @@ function enableSubmitIfValid() {
     const submitButton = document.getElementById('submitButton');
 
     const nameError = document.querySelector('#name ~ .invalid-feedback');
-    const emailInvalidError = document.querySelector('#email ~ .invalid-feedback:nth-child(2)');
+    const emailRequiredError = document.querySelector('#email ~ .invalid-feedback:nth-child(2)');
+    const emailInvalidError = document.querySelector('#email ~ .invalid-feedback:nth-child(3)');
 
     let isNameValid = !!nameInput.value;
     let isEmailValid = isValidEmail(emailInput.value);
 
-    if (isNameValid) {
+    if (isNameValid || !nameInput.touched) {
         nameError.classList.remove('d-block');
     } else {
         nameError.classList.add('d-block');
+    }
+
+    if (emailInput.value) {
+        emailRequiredError.classList.remove('d-block');
+    } else {
+        emailRequiredError.classList.add('d-block');
     }
 
     if (isEmailValid || !emailInput.value) {
@@ -100,3 +97,24 @@ function enableSubmitIfValid() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+
+    nameInput.touched = false;
+    emailInput.touched = false;
+    nameInput.addEventListener('blur', function () {
+        nameInput.touched = true;
+        enableSubmitIfValid();
+    });
+
+    emailInput.addEventListener('blur', function() {
+        nameInput.touched = true;
+        enableSubmitIfValid()
+    })
+
+    nameInput.addEventListener('input', enableSubmitIfValid);
+    emailInput.addEventListener('input', enableSubmitIfValid);
+
+    enableSubmitIfValid(); // Call once to set initial button state
+});
