@@ -14,8 +14,13 @@
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js" defer></script>
+
 </head>
 
 <body id="page-top">
@@ -62,14 +67,14 @@
                     <div class="form-group">
                         <input class="form-control" id="name" type="text" placeholder="Your Name *"
                             data-sb-validations="required" />
-                        <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                        <div class="invalid-feedback">A name is required.</div>
                     </div>
                     <!-- Email address input-->
                     <div class="form-group">
                         <input class="form-control" id="email" type="email" placeholder="Your Email *"
                             data-sb-validations="required,email" />
-                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                        <div class="invalid-feedback">An email is required.</div>
+                        <div class="invalid-feedback">Email is not valid.</div>
                     </div>
                 </div>
                 <div class="d-none" id="submitSuccessMessage">
@@ -114,9 +119,6 @@
         </div>
     </footer>
     <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
 </body>
 
 </html>
