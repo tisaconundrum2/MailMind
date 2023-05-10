@@ -82,7 +82,7 @@ function enableSubmitIfValid() {
         emailRequiredError.classList.add('d-block');
     }
 
-    if (isEmailValid || !emailInput.value) {
+    if (isEmailValid || !emailInput.value || !emailInput.touched) {
         emailInvalidError.classList.remove('d-block');
     } else {
         emailInvalidError.classList.add('d-block');
@@ -102,16 +102,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const emailInput = document.getElementById('email');
 
     nameInput.touched = false;
-    emailInput.touched = false;
     nameInput.addEventListener('blur', function () {
         nameInput.touched = true;
         enableSubmitIfValid();
     });
 
-    emailInput.addEventListener('blur', function() {
-        nameInput.touched = true;
-        enableSubmitIfValid()
-    })
+    emailInput.touched = false;
+    emailInput.addEventListener('blur', function () {
+        emailInput.touched = true;
+        enableSubmitIfValid();
+    });
 
     nameInput.addEventListener('input', enableSubmitIfValid);
     emailInput.addEventListener('input', enableSubmitIfValid);
