@@ -74,8 +74,7 @@ function enableSubmitIfValid() {
     const submitButton = document.getElementById('submitButton');
 
     const nameError = document.querySelector('#name ~ .invalid-feedback');
-    const emailRequiredError = document.querySelector('#email ~ .invalid-feedback:nth-child(2)');
-    const emailInvalidError = document.querySelector('#email ~ .invalid-feedback:nth-child(3)');
+    const emailInvalidError = document.querySelector('#email ~ .invalid-feedback:nth-child(2)');
 
     let isNameValid = !!nameInput.value;
     let isEmailValid = isValidEmail(emailInput.value);
