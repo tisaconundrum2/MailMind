@@ -67,12 +67,12 @@
                     <!-- Name input-->
                     <div class="form-group">
                         <input class="form-control" id="name" type="text" placeholder="Your Name *" />
-                        <div class="invalid-feedback">A name is required.</div>
+                        <div class="invalid-feedback" id="name-feedback">A name is required</div>
                     </div>
                     <!-- Email address input-->
                     <div class="form-group">
                         <input class="form-control" id="email" type="email" placeholder="Your Email *" />
-                        <div class="invalid-feedback">Email is not valid.</div>
+                        <div class="invalid-feedback" id="email-feedback">Email is not valid</div>
                     </div>
                 </div>
                 <div class="d-none" id="submitSuccessMessage">
@@ -81,15 +81,12 @@
                     </div>
                 </div>
                 <!-- Submit error message-->
-                <!---->
-                <!-- This is what your users will see when there is-->
-                <!-- an error submitting the form-->
                 <div class="d-none" id="submitErrorMessage">
                     <div class="text-center text-danger mb-3">Error sending message!</div>
                 </div>
                 <!-- Submit Button-->
                 <div class="text-center">
-                    <button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">
+                    <button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit" disabled>
                         SIGN UP
                     </button>
                 </div>
