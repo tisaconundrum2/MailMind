@@ -9,112 +9,83 @@
 
 window.addEventListener('DOMContentLoaded', event => {
 
-    // Navbar shrink function
-    var navbarShrink = function () {
-        const navbarCollapsible = document.body.querySelector('#mainNav');
-        if (!navbarCollapsible) {
-            return;
-        }
-        if (window.scrollY === 0) {
-            navbarCollapsible.classList.remove('navbar-shrink')
-        } else {
-            navbarCollapsible.classList.add('navbar-shrink')
-        }
+  // Navbar shrink function
+  var navbarShrink = function () {
+    const navbarCollapsible = document.body.querySelector('#mainNav');
+    if (!navbarCollapsible) {
+      return;
+    }
+    if (window.scrollY === 0) {
+      navbarCollapsible.classList.remove('navbar-shrink')
+    } else {
+      navbarCollapsible.classList.add('navbar-shrink')
+    }
 
-    };
+  };
 
-    // Shrink the navbar 
-    navbarShrink();
+  // Shrink the navbar 
+  navbarShrink();
 
-    // Shrink the navbar when page is scrolled
-    document.addEventListener('scroll', navbarShrink);
+  // Shrink the navbar when page is scrolled
+  document.addEventListener('scroll', navbarShrink);
 
-    //  Activate Bootstrap scrollspy on the main nav element
-    const mainNav = document.body.querySelector('#mainNav');
-    if (mainNav) {
-        new bootstrap.ScrollSpy(document.body, {
-            target: '#mainNav',
-            rootMargin: '0px 0px -40%',
-        });
-    };
-
-    // Collapse responsive navbar when toggler is visible
-    const navbarToggler = document.body.querySelector('.navbar-toggler');
-    const responsiveNavItems = [].slice.call(
-        document.querySelectorAll('#navbarResponsive .nav-link')
-    );
-    responsiveNavItems.map(function (responsiveNavItem) {
-        responsiveNavItem.addEventListener('click', () => {
-            if (window.getComputedStyle(navbarToggler).display !== 'none') {
-                navbarToggler.click();
-            }
-        });
+  //  Activate Bootstrap scrollspy on the main nav element
+  const mainNav = document.body.querySelector('#mainNav');
+  if (mainNav) {
+    new bootstrap.ScrollSpy(document.body, {
+      target: '#mainNav',
+      rootMargin: '0px 0px -40%',
     });
+  };
+
+  // Collapse responsive navbar when toggler is visible
+  const navbarToggler = document.body.querySelector('.navbar-toggler');
+  const responsiveNavItems = [].slice.call(
+    document.querySelectorAll('#navbarResponsive .nav-link')
+  );
+  responsiveNavItems.map(function (responsiveNavItem) {
+    responsiveNavItem.addEventListener('click', () => {
+      if (window.getComputedStyle(navbarToggler).display !== 'none') {
+        navbarToggler.click();
+      }
+    });
+  });
 
 });
 
-function isValidEmail(email) {
-    const regex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+$(document).ready(function () {
+
+  $('#name').on('input', function () {
+    if ($(this).val().length === 0) {
+      $('#name-feedback').show();
+    } else {
+      $('#name-feedback').hide();
+    }
+  });
+
+  $('#email').on('input', function () {
+    if (!isValidEmail($(this).val())) {
+      $('#email-feedback').show();
+    } else {
+      $('#email-feedback').hide();
+    }
+
+    $('#submitButton').prop('disabled', !validateInputs());
+  });
+
+  function validateInputs() {
+    var name = $('#name').val();
+    var email = $('#email').val();
+
+    var isNameValid = name.length > 0;
+    var isEmailValid = isValidEmail(email);
+
+    return isNameValid && isEmailValid;
+  }
+
+  function isValidEmail(email) {
+    // Regex for email validation
+    var regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     return regex.test(email);
-}
-
-function enableSubmitIfValid() {
-    const nameInput = document.getElementById('name');
-    const emailInput = document.getElementById('email');
-    const submitButton = document.getElementById('submitButton');
-
-    const nameError = document.querySelector('#name ~ .invalid-feedback');
-    const emailRequiredError = document.querySelector('#email ~ .invalid-feedback:nth-child(2)');
-    const emailInvalidError = document.querySelector('#email ~ .invalid-feedback:nth-child(3)');
-
-    let isNameValid = !!nameInput.value;
-    let isEmailValid = isValidEmail(emailInput.value);
-
-    if (isNameValid || !nameInput.touched) {
-        nameError.classList.remove('d-block');
-    } else {
-        nameError.classList.add('d-block');
-    }
-
-    if (emailInput.value) {
-        emailRequiredError.classList.remove('d-block');
-    } else {
-        emailRequiredError.classList.add('d-block');
-    }
-
-    if (isEmailValid || !emailInput.value || !emailInput.touched) {
-        emailInvalidError.classList.remove('d-block');
-    } else {
-        emailInvalidError.classList.add('d-block');
-    }
-
-    if (isNameValid && isEmailValid) {
-        submitButton.classList.remove('disabled');
-        submitButton.disabled = false;
-    } else {
-        submitButton.classList.add('disabled');
-        submitButton.disabled = true;
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    const nameInput = document.getElementById('name');
-    const emailInput = document.getElementById('email');
-
-    nameInput.touched = false;
-    nameInput.addEventListener('blur', function () {
-        nameInput.touched = true;
-        enableSubmitIfValid();
-    });
-
-    emailInput.touched = false;
-    emailInput.addEventListener('blur', function () {
-        emailInput.touched = true;
-        enableSubmitIfValid();
-    });
-
-    nameInput.addEventListener('input', enableSubmitIfValid);
-    emailInput.addEventListener('input', enableSubmitIfValid);
-
-    enableSubmitIfValid(); // Call once to set initial button state
+  }
 });
