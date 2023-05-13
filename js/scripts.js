@@ -102,8 +102,8 @@ $("#submitButton").click(function () {
     }),
     success: function (result) {
       alert("You've been added to the waitlist");
-      $('#name').val() = "";
-      $('#email').val() = "";
+      $('#name').val("");
+      $('#email').val("");
     },
     error: function (result) {
       alert("An error occured, please try again");
