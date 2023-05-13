@@ -1,4 +1,5 @@
 <?php
+require_once('../models/waitingListModel.php');
 
 class WaitingListController
 {
@@ -6,7 +7,7 @@ class WaitingListController
     {        
     }
 
-    public function insert(WaitingListModel $waitingList = null)
+    public static function insert(WaitingListModel $waitingList = null)
     {
         $db = Db::getInstance();
         $stmt = $db->prepare('

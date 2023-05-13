@@ -89,3 +89,22 @@ $(document).ready(function () {
     return regex.test(email);
   }
 });
+
+
+$("#submitButton").click(function () {
+  $.ajax({
+    type: "POST",
+    url: "/api/waitlist.php",
+    contentType: "application/json",
+    data: JSON.stringify({
+      name: $('#name').val(),
+      email: $('#email').val()
+    }),
+    success: function (result) {
+      alert("You've been added to the waitlist");
+    },
+    error: function (result) {
+      alert("An error occured, please try again");
+    }
+  });
+})

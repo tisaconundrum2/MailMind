@@ -1,5 +1,5 @@
 <?php
-require_once('connection.php');
+require_once('../connection.php');
 
 class WaitingListModel
 {
@@ -12,9 +12,10 @@ class WaitingListModel
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
+        $this->createTable();
     }
 
-    public static function createTable()
+    public function createTable()
     {
         $db = Db::getInstance();
         $db->query('
